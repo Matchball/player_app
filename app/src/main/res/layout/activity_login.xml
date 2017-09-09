@@ -1,0 +1,121 @@
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    android:orientation="vertical"
+    tools:context="com.example.shree.player_nav_drawer.LoginActivity">
+
+    <ImageView
+
+        android:src="@drawable/b2"
+        android:scaleType="centerCrop"
+        android:alpha="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/opaqueBlack">
+
+        <LinearLayout
+
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <ImageView
+                android:src="@drawable/logo"
+                android:id="@+id/imageView"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="40dp"
+                android:layout_weight="1" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/email"
+                    android:layout_gravity="center"
+                    android:layout_width="292dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:hint="@string/prompt_email"
+                    android:gravity="center"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="292dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:textColor="@color/white"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                android:layout_width="292dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:text="Sign In"
+                android:background="@drawable/mybutton"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+               />
+           <!-- <TextView
+                android:id="@+id/createAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/newUser"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+-->
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+
+
+</RelativeLayout>

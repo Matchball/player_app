@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<tools:ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/scrollbar_shape_style"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.shree.player_nav_drawer.Signup">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/playeridtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="loginid"
+        android:textColor="@color/black" />
+    <EditText
+        android:id="@+id/passwordtext"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"
+        android:textColor="@color/black"/>
+    <EditText
+        android:id="@+id/nametext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textColor="@color/black"
+        />
+
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="address"
+
+        android:textColor="@color/black" />
+
+    <TextView
+        android:text="Select date of birth from below"
+        android:textSize="18sp"
+        android:layout_marginLeft="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+
+    <com.lenovo.matchpointf.CustomDP
+        android:id="@+id/dobcalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#d3d3d3">
+    </com.lenovo.matchpointf.CustomDP>
+    <TextView
+        android:text="Select gender:"
+        android:textSize="18sp"
+        android:layout_marginLeft="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"/>
+    <RadioGroup
+        android:id="@+id/genderradiogroup"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/maleradiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="male"/>
+        <RadioButton
+            android:id="@+id/femaleradiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="female"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sign in"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:onClick="signIn" />
+</LinearLayout>
+</tools:ScrollView>

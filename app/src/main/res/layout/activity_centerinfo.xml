@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:weightSum="4"
+    tools:context="com.example.shree.player_nav_drawer.CenterInfo">
+
+    <Spinner
+        android:id="@+id/spinner"
+
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/Select_city"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="5dp"
+
+        />
+    <Spinner
+        android:id="@+id/spinner2"
+        android:spinnerMode="dropdown"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+
+        android:prompt="@string/select2"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/citytext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="city in which you live  "
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        />
+
+    <TextView
+        android:text="Select date of joining from below"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginLeft="3dp"
+
+       />
+    <DatePicker
+        android:id="@+id/joiningcalendar"
+        android:calendarTextColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#d3d3d3"
+        android:layout_weight="1"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:calendarViewShown="false"
+        android:layout_gravity="center">
+    </DatePicker>
+
+    <Button
+        android:id="@+id/next_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+</LinearLayout>

@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -82,6 +85,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -118,6 +122,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private String fbemail;
 
+    private String city;
+
+    private String center;
+
+    private String date;
+
+    private String mobile;
+
+    private String status;
+
     private LocalStorage session;
 
     private LoginResult lr;
@@ -130,6 +144,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+
+
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -153,12 +169,49 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference playerpdata = rootref.child("playerpdata");
 
+    public static final int MULTIPLE_PERMISSIONS = 10;
+
+    String[] permissions = new String[]{
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.SEND_SMS
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
         session = new LocalStorage(getApplicationContext());
+
+        HashMap<String, String> stat = session.getStatus();
+
+        HashMap<String, String> pro = session.getProfileDetails();
+
+        fbfirstname = pro.get(LocalStorage.FIRSTNAME);
+
+        fblastname = pro.get(LocalStorage.LASTNAME);
+
+        fbemail = pro.get(LocalStorage.EMAIL);
+
+        city = pro.get(LocalStorage.CITY);
+
+        center = pro.get(LocalStorage.CENTER);
+
+        date = pro.get(LocalStorage.DATE);
+
+        mobile = pro.get(LocalStorage.MOBILE);
+
+        status = stat.get(LocalStorage.STATUS);
+
+        if (status != null) {
+
+            redirect(status);
+
+        }
+
+        checkPermissions();
+
+        setContentView(R.layout.activity_login);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -211,6 +264,104 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         facebookInit();
 
     }
+
+
+    private boolean checkPermissions() {
+
+        // Check If Permissions Granted Or Not
+
+        int result;
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        for (String p : permissions) {
+
+            result = ContextCompat.checkSelfPermission(this, p);
+
+            if (result != PackageManager.PERMISSION_GRANTED) {
+
+                listPermissionsNeeded.add(p);
+
+            }
+
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MULTIPLE_PERMISSIONS);
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+
+    private void redirect(String status) {
+
+        if (status.equalsIgnoreCase("Signup-1")) {
+
+            Intent go = new Intent(LoginActivity.this, Signup.class);
+
+            go.putExtra("First", fbfirstname);
+
+            go.putExtra("Last", fblastname);
+
+            go.putExtra("Email", fbemail);
+
+            startActivity(go);
+
+            finish();
+
+        }
+
+        if (status.equalsIgnoreCase("Signup-2")) {
+
+            Intent go = new Intent(LoginActivity.this, SignUpDetails.class);
+
+            go.putExtra("First", fbfirstname);
+
+            go.putExtra("Last", fblastname);
+
+            go.putExtra("Email", fbemail);
+
+            go.putExtra("City", city);
+
+            go.putExtra("Center", center);
+
+            go.putExtra("Date", date);
+
+            startActivity(go);
+
+            finish();
+
+        }
+
+        if (status.equalsIgnoreCase("Logged")) {
+
+            Intent go = new Intent(LoginActivity.this, OverviewMenu.class);
+
+            go.putExtra("First", fbfirstname);
+
+            go.putExtra("Last", fblastname);
+
+            go.putExtra("Email", fbemail);
+
+            go.putExtra("City", city);
+
+            go.putExtra("Center", center);
+
+            go.putExtra("Date", date);
+
+            startActivity(go);
+
+            finish();
+
+        }
+
+    }
+
 
     private void layoutInit() {
 
@@ -419,15 +570,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                         if (task.getResult().getProviders().size() == 1) {
 
-                                            Toast.makeText(LoginActivity.this, "Exists", Toast.LENGTH_LONG).show();
+                                            Intent go = new Intent(LoginActivity.this, OverviewMenu.class);
 
-                                            handleFacebookAccessToken(loginResult.getAccessToken());
+                                            startActivity(go);
+
+                                            finish();
 
                                         }
 
                                         else {
 
-                                            session.loginSession("Facebook", fbfirstname, fblastname, fbemail);
+                                            session.loginSession("Facebook", fbfirstname, fblastname, fbemail, "", "", "", "");
+
+                                            session.updateStatus("Signup-1");
 
                                             Intent signup = new Intent(LoginActivity.this, Signup.class);
 

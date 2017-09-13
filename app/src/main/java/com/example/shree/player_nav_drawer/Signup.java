@@ -72,10 +72,14 @@ public class Signup extends AppCompatActivity implements DatePickerDialog.OnDate
 
     private SimpleDateFormat timeFormat;
 
+    private LocalStorage session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        session = new LocalStorage(getApplicationContext());
 
         calendar = Calendar.getInstance();
 
@@ -198,7 +202,6 @@ public class Signup extends AppCompatActivity implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cent = (String) adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(Signup.this, "center sel: " + cent, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -404,6 +407,10 @@ public class Signup extends AppCompatActivity implements DatePickerDialog.OnDate
 
         Toast.makeText(Signup.this, "Date Selected: " + dateFormat.format(calendar.getTime()), Toast.LENGTH_LONG).show();
 
+        session.loginSession("Facebook", firstname, lastname, email, spinner.getSelectedItem().toString(), spinner2.getSelectedItem().toString(), dateFormat.format(calendar.getTime()), "");
+
+        session.updateStatus("Signup-2");
+
         Intent signup = new Intent(Signup.this, SignUpDetails.class);
 
         signup.putExtra("First", firstname);
@@ -411,6 +418,12 @@ public class Signup extends AppCompatActivity implements DatePickerDialog.OnDate
         signup.putExtra("Last", lastname);
 
         signup.putExtra("Email", email);
+
+        signup.putExtra("City", spinner.getSelectedItem().toString());
+
+        signup.putExtra("Center", spinner2.getSelectedItem().toString());
+
+        signup.putExtra("Date", dateFormat.format(calendar.getTime()));
 
         startActivity(signup);
     }

@@ -32,17 +32,25 @@ import com.example.shree.player_nav_drawer.Drawer_Fragments.Player_profile;
 import com.example.shree.player_nav_drawer.Drawer_Fragments.Privacy_polocy;
 import com.example.shree.player_nav_drawer.Drawer_Fragments.Tournament_data;
 import com.example.shree.player_nav_drawer.Drawer_Fragments.Training_cal;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.firebase.database.Transaction;
 
-public class OverviewMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+public class OverviewMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+
     String playerid,categ;
+
+    private LocalStorage session;
+
     private Boolean exit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview_menu);
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        session = new LocalStorage(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,6 +102,15 @@ public class OverviewMenu extends AppCompatActivity
                                     @Override
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
+
+                                        session.updateStatus(null);
+
+                                        LoginManager.getInstance().logOut();
+
+                                        Intent go = new Intent(OverviewMenu.this, LoginActivity.class);
+
+                                        startActivity(go);
+
                                         finish();
                                     }
                                 })
